@@ -18,21 +18,21 @@
 //   );
 // }
 
+import axios from "axios";
 import SideNavbar from "./components/Dashboard_SideNavbar";
 import Header from "./components/Dashboard_Header";
 import LeftColumn from "./components/Dashboard_LeftColumn";
 import RightColumn from "./components/Dashboard_RightColumn";
 
-export default function Home() {
 
+
+export default async function Home() {
 
 
   return (
     <div className="flex">
-      <div>
-        {/* <LoginSessionInfo /> */}
-      </div>
-      {/* <LoginSessionInfo /> */}
+      <div></div>
+
       <SideNavbar />
       <div className="flex-1 md:flex h-screen relative">
         <Header />

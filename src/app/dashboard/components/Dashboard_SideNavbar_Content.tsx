@@ -4,7 +4,10 @@ import React from "react";
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 import { data_SideNavBar } from "../../../lib/data";
+//import TokenInfo from "../../Common/components/TokenInfo";
+
 import { MyComponent } from "../../../lib/data";
 
 export default function Dashboard_SideNavbar_Content() {
@@ -17,8 +20,12 @@ export default function Dashboard_SideNavbar_Content() {
           <div className="h-16 flex items-center">
             <Link
               href="#"
-              className="w-48 h-10 mx-auto bg-blue-500 hover:bg-blue-700 flex items-center justify-center text-gray-100 py-2 rounded space-x-2 transition duration-150"
-            ></Link>
+              className="h-10 mx-auto bg-blue-500 hover:bg-blue-700 flex items-center justify-center text-gray-100 py-2 rounded space-x-2 transition duration-150"
+            >
+              {/* <TokenInfo _keyValue={"username"} />
+              <TokenInfo _keyValue={"id"} /> */}
+              
+            </Link>
           </div>
           <div className="px-2 pt-4 pb-8 border-r border-gray-300">
             <ul className="space-y-2">

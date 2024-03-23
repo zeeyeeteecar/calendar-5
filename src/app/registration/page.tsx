@@ -1,15 +1,16 @@
 import React from "react";
 import { revalidatePath } from "next/cache";
-import { prisma } from "../lib/db";
+import { prisma } from "../../lib/db";
 
 import Result_SearchClass from "./components/Result_SearchClass";
 import SearchMember from "./components/SearchMember";
 import Invoice_Preview from "./components/Invoice_Preview";
 
-let globe_MemberSearchResult = null;
-let globe_Selected_MemberInfo = null;
-let globe_SelectedMember_RegisterInfo = null;
-let globe_RegistrationInfo = { memberInfo: null, eventsInfo: null };
+let globe_MemberSearchResult: any = null;
+let globe_Selected_MemberInfo: any = null;
+let globe_SelectedMember_RegisterInfo: any = null;
+let globe_RegistrationInfo: any = { memberInfo: null, eventsInfo: null };
+
 
 //====================================================
 async function handle_SearchMember(data: FormData) {
@@ -64,8 +65,7 @@ async function handle_radioChanged(formData: FormData) {
   globe_SelectedMember_RegisterInfo = await prisma.tMemberRegEvent.findMany({
     where: {
       MemberID: Number(memberID),
-      tEvents:{Start_Date:{gte:"2024-01-01"}}
-
+      tEvents: { Start_Date: { gte: "2024-01-01" } },
     },
     include: { tEvents: {}, tMaster: {} },
 

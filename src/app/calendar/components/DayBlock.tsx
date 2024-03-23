@@ -104,7 +104,7 @@ export default async function DayEvents({
       {/* <div className="border-2">
         {currentDateEvents.length} = {dayEvents.length}
       </div> */}
-      {/* <div>{JSON.stringify(admins)}</div> */}
+      
       <div className="w-full min-h-[300px] border-[1px]">
         <div className="border-0 flow-root bg-slate-100 ">
           <div className="float-left px-3">{moment(monthDay).format("DD")}</div>
@@ -171,9 +171,7 @@ const fun_currentDateEvents = (
           (x.Event_TypeCode === "o2b2" ||
             (x.Event_TypeCode === "RoomBooking" &&
               x.ShowInCalendar === "Yes"))) ||
-        x.tEventsOtherDays.find(
-          (y: any) => y.EventOtherDate == monthDay.toString() + " 00:00:00"
-        )
+        x.tEventsOtherDays.find((y: any) => moment(y.EventOtherDate).zone(0).format("YYYY-MM-DD") == monthDay)
       // .EventOtherDate == monthDay.toString() + " 00:00:00"
     );
   return returnValue;

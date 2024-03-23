@@ -30,7 +30,7 @@ export default function Members_Block_SearchBar({
     PhoneHome: "",
   };
 
-  function handle_Search_Members_Debounce_Local_tMasterID(e) {
+  function handle_Search_Members_Debounce_Local_tMasterID(e:any) {
     searchKeywords = {
       ...searchKeywords,
       tMasterID: e.target.value.toString(),
@@ -39,25 +39,25 @@ export default function Members_Block_SearchBar({
     //handle_Search_Members_Debounce(searchKeywords);
   }
 
-  function handle_Search_Members_Debounce_Local_Fname(e) {
+  function handle_Search_Members_Debounce_Local_Fname(e:any) {
     searchKeywords = { ...searchKeywords, Fname: e.target.value.toString() };
     console.log(searchKeywords);
     //handle_Search_Members_Debounce(searchKeywords);
   }
 
-  function handle_Search_Members_Debounce_Local_Company(e) {
+  function handle_Search_Members_Debounce_Local_Company(e:any) {
     searchKeywords = { ...searchKeywords, Company: e.target.value.toString() };
     console.log(searchKeywords);
     //handle_Search_Members_Debounce(searchKeywords);
   }
 
-  function handle_Search_Members_Debounce_Local_Lname(e) {
+  function handle_Search_Members_Debounce_Local_Lname(e:any) {
     searchKeywords = { ...searchKeywords, Lname: e.target.value.toString() };
     console.log(searchKeywords);
     //handle_Search_Members_Debounce(searchKeywords);
   }
 
-  function handle_Search_Members_Debounce_Local_Address(e) {
+  function handle_Search_Members_Debounce_Local_Address(e:any) {
     searchKeywords = {
       ...searchKeywords,
       Address: e.target.value.toString(),
@@ -66,7 +66,7 @@ export default function Members_Block_SearchBar({
     //handle_Search_Members_Debounce(searchKeywords);
   }
 
-  function handle_Search_Members_Debounce_Local_PhoneHome(e) {
+  function handle_Search_Members_Debounce_Local_PhoneHome(e:any) {
     searchKeywords = {
       ...searchKeywords,
       PhoneHome: e.target.value.toString(),
@@ -75,18 +75,18 @@ export default function Members_Block_SearchBar({
     //handle_Search_Members_Debounce(searchKeywords);
   }
 
-  // function handle_Search_Members_Debounce_Local_Fname(e) {
+  // function handle_Search_Members_Debounce_Local_Fname(e:any) {
   //   setSearchKeywords({ ...searchKeywords, Fname: e.target.value.toString() });
   //   console.log(searchKeywords)
   ////   //handle_Search_Members_Debounce(searchKeywords);
   // }
 
-  // function handle_Search_Members_Debounce_Local_Lname(e) {
+  // function handle_Search_Members_Debounce_Local_Lname(e:any) {
   //   setSearchKeywords({ ...searchKeywords, Lname: e.target.value.toString() });
   ////   handle_Search_Members_Debounce(searchKeywords);
   // }
 
-  // function handle_Search_Members_Debounce_Local_Address(e) {
+  // function handle_Search_Members_Debounce_Local_Address(e:any) {
   //   setSearchKeywords({
   //     ...searchKeywords,
   //     Address: e.target.value.toString(),
@@ -94,7 +94,7 @@ export default function Members_Block_SearchBar({
   ////   handle_Search_Members_Debounce(searchKeywords);
   // }
 
-  // function handle_Search_Members_Debounce_Local_PhoneHome(e) {
+  // function handle_Search_Members_Debounce_Local_PhoneHome(e:any) {
   //   setSearchKeywords({
   //     ...searchKeywords,
   //     PhoneHome: e.target.value.toString(),

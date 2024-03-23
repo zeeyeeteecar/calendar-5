@@ -1,8 +1,8 @@
 import React from "react";
 import moment from "moment";
 import { revalidatePath } from "next/cache";
-import { prisma } from "../../lib/db";
-import { RegistrationStatus } from "@/app/lib/data";
+import { prisma } from "../../../lib/db";
+import { RegistrationStatus } from "../../..//lib/data";
 
 export default function SearchClass({
   //globe_MemberSearchResult,

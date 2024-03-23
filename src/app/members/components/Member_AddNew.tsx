@@ -1,5 +1,5 @@
 import React from "react";
-import { prisma } from "../../lib/db";
+import { prisma } from "../../../lib/db";
 import { revalidatePath } from "next/cache";
 
 import Modal_Member_AddNew from "./Modal_Member_AddNew";

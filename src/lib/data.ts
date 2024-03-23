@@ -97,8 +97,8 @@ export const data_SideNavBar = [
     IconComponent: FaRegRegistered,
   },
   {
-    title: "Snoozed",
-    link: "#",
+    title: "Log Out",
+    link: "/logout",
     IconComponent: CiStar,
   },
   {

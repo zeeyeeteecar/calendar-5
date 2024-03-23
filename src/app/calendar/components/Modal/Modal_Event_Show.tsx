@@ -1,6 +1,9 @@
 "use client";
 import React from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { formatDate } from "../../../../lib/lib";
+import moment from "moment-timezone"
+
 
 const notify = (msg: string) => toast(msg);
 
@@ -31,15 +34,17 @@ export default function Modal_Event_Show({
         <h1 className=" text-xl"> Title: </h1>
         <p className="text-left text-gray-700 mb-5">{event.Event_Title}</p>
         <p className="text-left text-gray-700 mb-5">
-          Title: {event.Start_Date.toString()}
+          Title: {moment(event.Start_Date).format("YYYY-MM-DD")}ddd
         </p>
         <p className="text-left text-gray-700 mb-5">
-          Title: {event.End_Date.toString()}
+          {/* Title: {event.End_Date.toString()} */}
         </p>
         <p className="text-left text-gray-700 mb-5">
-          Title: {event.Start_Time}
+          {/* Title: {event.Start_Time} */}
         </p>
-        <p className="text-left text-gray-700 mb-5">Title: {event.End_Time}</p>
+        <p className="text-left text-gray-700 mb-5">
+          {/* Title: {event.End_Time} */}
+        </p>
 
         <div className="text-left">
           <button className="px-5 py-2 bg-gray-700 text-white rounded">

@@ -3,6 +3,15 @@ import { prisma } from "../lib/db";
 import moment from "moment";
 import axios from "axios";
 
+export const formatDate = (_date: string) => {
+  //"use server"
+  let returnValue: Date;
+  returnValue = new Date(moment(_date).format("YYYY-MM-DD"));
+  return returnValue;
+};
+
+//==========================================================
+
 export const SessionInfo = async () => {
   //"use server"
   const response = await axios.get("/api/users/getUserAuthInfo");
@@ -52,7 +61,7 @@ export function getAllExtendedSelectedMonthDays(
   startDate: string,
   endDate: string
 ): string[] {
-  let date = [];
+  let date: string[] = [];
 
   //////////////// unshift previous month days/////////////////
 

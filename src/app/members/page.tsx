@@ -8,11 +8,11 @@ import LoadingSpinner from "../Common/components/LoadingSpinner";
 
 //let globe_Search_Members_Results: any;
 let globe_MemberSearchKeywords: {
-  tMasterID: string;
-  Fname: string;
-  Lname: string;
-  Address: string;
-  PhoneHome: string;
+  tMasterID: string | undefined;
+  Fname: string | undefined;
+  Lname: string | undefined;
+  Address: string | undefined;
+  PhoneHome: string | undefined;
 } = { tMasterID: "", Fname: "", Lname: "", Address: "86", PhoneHome: "" };
 
 export default function page() {
@@ -26,11 +26,20 @@ export default function page() {
 
   async function handle_Search_Members(data: FormData) {
     "use server";
-    const tMasterID: string = data.get("tMasterID")?.valueOf().toString();
-    const Fname: string = data.get("Fname")?.valueOf().toString();
-    const Lname: string = data.get("Lname")?.valueOf().toString();
-    const Address: string = data.get("Address")?.valueOf().toString();
-    const PhoneHome: string = data.get("PhoneHome")?.valueOf().toString();
+    const tMasterID: string | undefined = data
+      .get("tMasterID")
+      ?.valueOf()
+      .toString();
+    const Fname: string | undefined = data.get("Fname")?.valueOf().toString();
+    const Lname: string | undefined = data.get("Lname")?.valueOf().toString();
+    const Address: string | undefined = data
+      .get("Address")
+      ?.valueOf()
+      .toString();
+    const PhoneHome: string | undefined = data
+      .get("PhoneHome")
+      ?.valueOf()
+      .toString();
 
     globe_MemberSearchKeywords.tMasterID = tMasterID;
     globe_MemberSearchKeywords.Fname = Fname;
@@ -64,7 +73,6 @@ export default function page() {
 
   return (
     <>
-      
       <div className="flex flex-row p-3 space-x-3">
         <Member_AddNew />
         <Members_Block_SearchBar

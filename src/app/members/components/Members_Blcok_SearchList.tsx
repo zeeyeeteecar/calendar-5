@@ -14,11 +14,11 @@ import moment from "moment";
 
 import React from "react";
 import Link from "next/link";
-import { prisma } from "../../lib/db";
+import { prisma } from "../../../lib/db";
 
 import Modal_Member_Edit from "./Modal_Member_Edit";
 
-import { data_Status } from "../../lib/data";
+import { data_Status } from "../../../lib/data";
 
 const randomAvatarLink = () => {
   const url =

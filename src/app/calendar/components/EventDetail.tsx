@@ -30,10 +30,10 @@ export default function EventDetail({
   const eventColor = getEventColor(event.Event_Type, eventTypes);
 
   const start_Time = event.Start_Time
-    ? moment(event.Start_Time, "HH:mm").format("HH:mm")
+    ? moment(event.Start_Time, "HH:mm").zone(0).format("HH:mm")
     : "";
   const end_Time = event.Start_Time
-    ? moment(event.End_Time, "HH:mm").format("HH:mm")
+    ? moment(event.End_Time, "HH:mm").zone(0).format("HH:mm")
     : "";
 
   return (
@@ -45,7 +45,7 @@ export default function EventDetail({
         onClick={() => setShowModal_Edit(true)}
       >
         <div className={"w-[120px] border-0 "}>
-          {start_Time}-{end_Time}
+          {start_Time}-{end_Time} 
         </div>
         <div className="w-[200px] ">
           <div

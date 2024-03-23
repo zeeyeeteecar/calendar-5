@@ -39,29 +39,28 @@ model tEventType {
   PaymentReport Boolean? @db.Bit(1)
 }
 
-
 model tEvents {
   Event_ID       Int       @id @default(autoincrement())
-  Date_Added    String?   @db.VarChar(10)
-  Start_Date    String?   @db.VarChar(10)
-  End_Date       String?   @db.VarChar(10)
-  Start_Time     String?   @db.VarChar(8)
-  End_Time       String?   @db.VarChar(8)
+  Date_Added     String?   @db.VarChar(40)
+  Start_Date     DateTime? @db.Date
+  End_Date       DateTime? @db.Date
+  Start_Time     DateTime? @db.Time(0)
+  End_Time       DateTime? @db.Time(0)
   Event_Title    String?   @db.VarChar(200)
   Event_Fee      Float?
   Event_Details  String?   @db.MediumText
   Activity_Room  String?   @db.VarChar(5)
-  Board_Room     String?   @db.VarChar(255)
-  Resource_Room  String?   @db.VarChar(255)
-  Computer_Lab   String?   @db.VarChar(255)
-  SC_Room        String?   @db.VarChar(255)
+  Board_Room     String?   @db.VarChar(5)
+  Resource_Room  String?   @db.VarChar(5)
+  Computer_Lab   String?   @db.VarChar(5)
+  SC_Room        String?   @db.VarChar(5)
   Event_Location String?   @db.VarChar(50)
   Big_Event      String?   @db.VarChar(50)
-  Event_Weekday  String?   @db.VarChar(50)
-  Event_Type     String?  @db.VarChar(50)
+  Event_Weekday  String?   @db.VarChar(10)
+  Event_Type     String?   @db.VarChar(50)
   Event_TypeCode String?   @db.VarChar(20)
   Event_Type_ID  Int?
-  ShowInCalendar String?   @db.VarChar(255)
+  ShowInCalendar String?   @db.VarChar(10)
   PersonInCharge String?   @db.VarChar(50)
   PersonAdmin    String?   @db.VarChar(20)
   Poster         String?   @db.VarChar(20)
@@ -70,17 +69,18 @@ model tEvents {
   FlexTimeLunch  Int?      @db.SmallInt
   PersonOperate  String?   @db.VarChar(255)
 
+  
    tEventsOtherDays tEventsOtherDay[]
    tMasters tMemberRegEvent[]
-   
+
 }
 
 model tEventsOtherDay {
-  ID                       Int     @id @default(autoincrement())
- 
-  EventOtherDate           String? @db.VarChar(40)
-  EventOtherDate_TimeStart String? @db.VarChar(40)
-  EventOtherDate_TimeEnd   String? @db.VarChar(40)
+  ID                       Int       @id @default(autoincrement())
+  //Event_ID                 Int?
+  EventOtherDate           DateTime? @db.Date
+  EventOtherDate_TimeStart DateTime? @db.Time(0)
+  EventOtherDate_TimeEnd   DateTime? @db.Time(0)
 
   event   tEvents @relation(fields: [Event_ID], references: [Event_ID])
   Event_ID Int
@@ -119,6 +119,7 @@ model tMaster {
   HeardFrom      String?  @db.VarChar(50)
   DateofReg      String?  @db.VarChar(10)
   Year           Int?
+  MbrNo          String?  @db.VarChar(50)
   VotingMbr      Boolean? @db.Bit(1)
   VotingMbr_Life Boolean? @db.Bit(1)
   Participant    Boolean? @db.Bit(1)
@@ -155,19 +156,19 @@ model tMaster {
 }
 
 model tSignInDaily {
-  ID              Int       @id @default(autoincrement())
-  MemberID        Int?
-  SignInName      String?   @db.VarChar(255)
-  SignInDateTime  DateTime? @db.DateTime(0)
-  SignOutDateTime DateTime? @db.DateTime(0)
-  SignInStatus    String?   @db.VarChar(255)
-  SignInFromHome  Boolean?  @db.Bit(1)
-  SignInIP        String?   @db.VarChar(20)
+  ID             Int      @id @default(autoincrement())
+  MemberID       Int?
+  SignInName     String?  @db.VarChar(50)
+  SignInDate     String?  @db.VarChar(10)
+  SignInTime     String   @db.VarChar(8)
+  SignOutDate    String?  @db.VarChar(10)
+  SignOutTime    String   @db.VarChar(8)
+  SignInStatus   String?  @db.VarChar(20)
+  SignInFromHome Boolean? @db.Bit(1)
+  SignInIP       String?  @db.VarChar(20)
 }
 
-
 model tMemberRegEvent {
-  
   ID                             Int      @id @default(autoincrement())
 
   tMaster       tMaster     @relation(fields: [MemberID], references: [tMasterID])
@@ -178,9 +179,10 @@ model tMemberRegEvent {
   PayCategoryID                  Int?
   PayCategoryCode                String?  @db.VarChar(255)
   PaymentCategoryTitle           String?  @db.VarChar(255)
-  
+
   tEvents       tEvents ?    @relation(fields: [EventID], references: [Event_ID])
   EventID                        Int?
+
 
   MemberOrVol                    String?  @db.VarChar(255)
   MemberPayment                  Float?
@@ -198,6 +200,19 @@ model tMemberRegEvent {
   LogRegDate                     String?  @db.VarChar(40)
   LogRegStaff                    String?  @db.VarChar(255)
   LogRegNote                     String?  @db.MediumText
+}
 
-   @@index([MemberID, EventID])
+model Tbl_CaptureImage {
+  ID          Int     @id @default(autoincrement())
+  userName    String? @db.VarChar(20)
+  userID      Int?
+  imgBase64_1 String? @db.MediumText
+  imgBase64_2 String  @db.MediumText
+}
+
+model tbl_SQL_Script {
+  id             Int    @id @default(autoincrement())
+  table_Effected String @db.VarChar(20)
+  sqlTitle       String @db.VarChar(50)
+  sqlText        String @db.Text
 }

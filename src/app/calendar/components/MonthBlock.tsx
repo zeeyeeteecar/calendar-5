@@ -1,6 +1,7 @@
 import React from "react";
 import { prisma } from "../../../lib/db";
 import moment from "moment";
+import { formatDate } from "../../../lib/lib";
 
 import DayBlock from "./DayBlock";
 import {
@@ -16,7 +17,6 @@ export default async function MonthBlock({
   selectedYear: string;
   selectedMonth: string;
 }) {
-
   const year_month = selectedYear.toString() + " " + selectedMonth.toString();
   const startOfMonth = moment(year_month).startOf("month").format("YYYY-MM-DD");
   const endOfMonth = moment(year_month).endOf("month").format("YYYY-MM-DD");
@@ -43,7 +43,7 @@ export default async function MonthBlock({
 
   return (
     <>
-      {/* <div>{JSON.stringify(selectedMonthYear_Events)}</div> */}
+      <div>{JSON.stringify(selectedMonthYear_Events)}</div>
       {/* <div>
         {startOfMonth} - {endOfMonth}
       </div>
@@ -85,8 +85,8 @@ const fetch_selectedMonthYear_Events = async (
     where: {
       OR: [
         {
-          Start_Date: { lte: _firstDayOfMonthBlock },
-          End_Date: { gte: _firstDayOfMonthBlock },
+          Start_Date: { lte: formatDate(_firstDayOfMonthBlock) },
+          End_Date: { gte: formatDate(_firstDayOfMonthBlock) },
           // Event_Weekday: {
           //   contains: (weekdayNumberOfMonthDay + 1).toString(),
           // },
@@ -101,9 +101,8 @@ const fetch_selectedMonthYear_Events = async (
           ],
         },
         {
-          Start_Date: { lte: _lastDayOfMonthBlock },
-          End_Date: { gte: _lastDayOfMonthBlock },
-          // Event_Weekday: {
+          Start_Date: { lte: formatDate(_lastDayOfMonthBlock) },
+          End_Date: { gte: formatDate(_lastDayOfMonthBlock) },
           //   contains: (weekdayNumberOfMonthDay + 1).toString(),
           // },
           OR: [
@@ -117,8 +116,8 @@ const fetch_selectedMonthYear_Events = async (
           ],
         },
         {
-          Start_Date: { gte: _firstDayOfMonthBlock },
-          End_Date: { lte: _lastDayOfMonthBlock },
+          Start_Date: { gte: formatDate(_firstDayOfMonthBlock) },
+          End_Date: { lte: formatDate(_lastDayOfMonthBlock) },
           // Event_Weekday: {
           //   contains: (weekdayNumberOfMonthDay + 1).toString(),
           // },
@@ -139,12 +138,12 @@ const fetch_selectedMonthYear_Events = async (
               AND: [
                 {
                   EventOtherDate: {
-                    gte: _firstDayOfMonthBlock.toString() + " 00:00:00",
+                    gte: formatDate(_firstDayOfMonthBlock),
                   },
                 },
                 {
                   EventOtherDate: {
-                    lte: _lastDayOfMonthBlock.toString() + " 00:00:00",
+                    lte: formatDate(_lastDayOfMonthBlock),
                   },
                 },
               ],

@@ -2,7 +2,7 @@
 import React from "react";
 import { IoPersonAddOutline } from "react-icons/io5";
 
-import { data_Status } from "../../lib/data";
+import { data_Status } from "../../../lib/data";
 import { close } from "fs";
 
 const initialState = {
