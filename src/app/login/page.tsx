@@ -28,7 +28,7 @@ export default function SigninPage() {
 if (err.message==="Request failed with status code 401")
     { alert("Login failed: -- User Not Exists");}
 
-    if (err.message==="Request failed with status code 402")
+    if (err.message==="Request failed with status code f402")
     { alert("Login failed: -- Wrong Password");}
 
       //toast.error(error);
