@@ -24,12 +24,16 @@ export default function SigninPage() {
       router.push("/dashboard");
     } catch (error) {
       const err = error as AxiosError;
-      console.log("err.message", err.message)
-if (err.message==="Request failed with status code 401")
-    { alert("Login failed: -- User Not Exists");}
+      
+      console.log("err.message---", err.message);
 
-    if (err.message==="Request failed with status code f402")
-    { alert("Login failed: -- Wrong Password");}
+      if (err.message.toString().includes("401")) {
+        alert("Login failed: -- User Not Exists");
+      }
+
+      if (err.message.toString().includes("402")) {
+        alert("Login failed: -- Wrong Password");
+      }
 
       //toast.error(error);
     } finally {

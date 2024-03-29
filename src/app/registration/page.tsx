@@ -123,8 +123,8 @@ async function _handle_RegistrationInvoicePreview(formData: FormData) {
 
 export default async function registration() {
   return (
-    <div className="w-min-screen h-full flex flex-row p-4  border-0 border-red-300">
-      <div className=" w-3/12 h-min-full border-0 m-0 ">
+    <div className="w-min-screen h-screen flex flex-row p-4  border-0 border-red-300">
+      <div className=" w-4/12 h-min-full border-0 m-0 ">
         <SearchMember
           globe_MemberSearchResult={globe_MemberSearchResult}
           globe_Selected_MemberInfo={globe_Selected_MemberInfo}
@@ -153,7 +153,7 @@ export default async function registration() {
         <div>{JSON.stringify(globe_SelectedMember_RegisterInfo)}</div>
       </div> */}
 
-      <div className="w-5/12 border-2 p-1 ">
+      <div className="w-4/12 border-2 p-1 ">
         <div>
           <SelectPayment globe_RegistrationInfo={globe_RegistrationInfo} />
         </div>

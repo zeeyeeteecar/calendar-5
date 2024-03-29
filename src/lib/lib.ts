@@ -3,6 +3,37 @@ import { prisma } from "../lib/db";
 import moment from "moment";
 import axios from "axios";
 
+export const Selected_Member_Registration = async (memberID: string) => {
+  try {
+    const result = await prisma.tMaster.findMany({
+      where: {
+        tMasterID: Number(memberID),
+      },
+      select: {
+        tMasterID: true,
+        Lname: true,
+        Fname: true,
+        Address: true,
+        Address2: true,
+        City: true,
+        Prov: true,
+        Email: true,
+
+        tMemberRegEvent: {
+          select: {
+            MemberPayment: true,
+            MemberPaymentBy: true,
+            MemberPaymentDate:true,
+          },
+        },
+      },
+    });
+    return await result;
+  } catch (error) {
+    console.log("Error while login... cannot find any user");
+  }
+};
+
 export const formatDate = (_date: string) => {
   //"use server"
   let returnValue: Date;

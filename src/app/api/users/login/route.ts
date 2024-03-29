@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
     }
 
     //create token data
-    let tokenData = {
+    const tokenData = {
       id: user.id,
       username: user.username,
       email: user.email,
@@ -41,7 +41,6 @@ export async function POST(request: NextRequest) {
 
     //create token
 
-    
     const token = await jwt.sign(tokenData, process.env.JWT_SECRET_KEY!, {
       expiresIn: "1h",
     });
@@ -64,9 +63,8 @@ export async function POST(request: NextRequest) {
     // });
 
     response.cookies.set("token", token, {
-      expires: new Date(Date.now() + 60 * 60 * 1000) 
+      expires: new Date(Date.now() + 60 * 60 * 1000),
     });
-
 
     console.log("reqBody===", reqBody);
     console.log("user===", user);
