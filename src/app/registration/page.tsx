@@ -2,9 +2,12 @@ import React from "react";
 import { revalidatePath } from "next/cache";
 import { prisma } from "../../lib/db";
 
-import Result_SearchClass from "./components/Result_SearchClass";
+import Result_SearchClass from "./components/SearchClass";
 import SearchMember from "./components/SearchMember";
 import Invoice_Preview from "./components/Invoice_Preview";
+import SelectPayment from "./components/SelectPayment";
+
+import "./styles/styles.css"
 
 let globe_MemberSearchResult: any = null;
 let globe_Selected_MemberInfo: any = null;
@@ -12,13 +15,18 @@ let globe_SelectedMember_RegisterInfo: any = null;
 let globe_RegistrationInfo: any = { memberInfo: null, eventsInfo: null };
 
 
+
 //====================================================
-async function handle_SearchMember(data: FormData) {
+async function handle_SearchMember(
+  Fname: string,
+  Lname: string,
+  MemberID: string
+) {
   "use server";
-  const Fname = data.get("Fname")?.valueOf().toString();
-  //const Fname = "tom";
-  const Lname = data.get("Lname")?.valueOf().toString();
-  const MemberID = data.get("MemberID")?.valueOf();
+  // const Fname = data.get("Fname")?.valueOf().toString();
+  // //const Fname = "tom";
+  // const Lname = data.get("Lname")?.valueOf().toString();
+  // const MemberID = data.get("MemberID")?.valueOf();
 
   // if (typeof Fname !== "string" || Fname.length === 0) {
   //   throw new Error("Invalid title");
@@ -65,7 +73,7 @@ async function handle_radioChanged(formData: FormData) {
   globe_SelectedMember_RegisterInfo = await prisma.tMemberRegEvent.findMany({
     where: {
       MemberID: Number(memberID),
-      tEvents: { Start_Date: { gte: "2024-01-01" } },
+      tEvents: { Start_Date: { gte: new Date("2024-01-01") } },
     },
     include: { tEvents: {}, tMaster: {} },
 
@@ -109,16 +117,14 @@ async function _handle_RegistrationInvoicePreview(formData: FormData) {
   console.log(formData);
 
   globe_RegistrationInfo.eventsInfo = formData;
-
-  revalidatePath("/");
 }
 
 ///===================================================================================
 
 export default async function registration() {
   return (
-    <div className="w-screen h-screen border flex flex-row p-1 font-light">
-      <div className=" w-3/12 h-full border-2 m-0 ">
+    <div className="w-min-screen h-full flex flex-row p-4  border-0 border-red-300">
+      <div className=" w-3/12 h-min-full border-0 m-0 ">
         <SearchMember
           globe_MemberSearchResult={globe_MemberSearchResult}
           globe_Selected_MemberInfo={globe_Selected_MemberInfo}
@@ -126,8 +132,7 @@ export default async function registration() {
           handle_radioChanged={handle_radioChanged}
         />
       </div>
-
-      <div className="w-3/12 border p-1">
+      <div className="w-4/12 border p-1">
         <Result_SearchClass
           // globe_MemberSearchResult={globe_MemberSearchResult}
           globe_SelectedMember_RegisterInfo={
@@ -142,8 +147,17 @@ export default async function registration() {
         />
       </div>
 
-      <div className="w-6/12 border-2 p-1 ">
+      {/* <div className="w-5/12 border-2 p-1 ">
         <Invoice_Preview globe_RegistrationInfo={globe_RegistrationInfo} />
+        <div>{JSON.stringify(await SelectedMember_RegisterInfo_test())}</div>
+        <div>{JSON.stringify(globe_SelectedMember_RegisterInfo)}</div>
+      </div> */}
+
+      <div className="w-5/12 border-2 p-1 ">
+        <div>
+          <SelectPayment globe_RegistrationInfo={globe_RegistrationInfo} />
+        </div>
+        <div>DFADF</div>
         {/* <div>{JSON.stringify(await SelectedMember_RegisterInfo_test())}</div> */}
         <div>{JSON.stringify(globe_SelectedMember_RegisterInfo)}</div>
       </div>

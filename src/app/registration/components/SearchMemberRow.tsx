@@ -1,4 +1,10 @@
 import React from "react";
+import { PiCellSignalFullLight } from "react-icons/pi";
+import { AiOutlineHome } from "react-icons/ai";
+import { CiPhone } from "react-icons/ci";
+import { revalidatePath } from "next/cache";
+
+import { data_Status } from "../../../lib/data";
 
 const randomAvatarLink = () => {
   const url =
@@ -9,83 +15,99 @@ const randomAvatarLink = () => {
 
 export default function SearchMemberRow({ member, handle_radioChanged }: any) {
   return (
-    <div className="relative border-0 w-full h-[100px] space-0 flex flex-col p-0 ">
-      <form action={handle_radioChanged}>
-        <button
-          name="memberID"
-          type="submit"
+    <div className="relative border-0 w-full h-[120px] space-0 flex flex-col p-0 ">
+      <label className="flex flex-col">
+        <input
+          type="radio"
           value={member.tMasterID}
-          className=" w-full hover:bg-yellow-100 focus:outline-none focus:border-0 focus:bg-yellow-200 rounded-lg delay-100"
-        >
-          <div className="flex flex-row p-2 space-x-4 w-full border-0">
-            <div className="w-[70px]">
-              <img
-                src={randomAvatarLink()}
-                alt="user photo"
-                className="w-10 h-10 object-cover rounded-full"
-              />
+          className="peer hidden"
+          name="framework"
+        />
+
+        <div className="hover:bg-gray-50 flex items-center justify-between px-4 py-2 border-2 rounded-lg cursor-pointer text-sm border-gray-200 group peer-checked:border-blue-500">
+          <h2 className="font-medium text-gray-700">Laravel</h2>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            className="w-9 h-9 text-blue-600 invisible group-[.peer:checked+&]:visible"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+        </div>
+
+        <div className="flex flex-row p-1 space-x-4 w-full border-0">
+          <div className="w-[50px] border-0">
+            <img
+              src={randomAvatarLink()}
+              alt="user photo"
+              className="w-10 h-10 object-cover rounded-full"
+            />
+          </div>
+
+          <div className="flex flex-col w-full space-y-1 border-0">
+            <div className="flex flex-row">
+              <span className="text-base text-left inline-block w-full font-semibold">
+                {member.Fname} {member.Lname}
+              </span>
             </div>
-            <div className="flex flex-col w-full">
-              <div className="flex flex-row">
-                <span className="text-base text-left inline-block w-full">
-                  {member.Fname} {member.Lname}
-                </span>
-                {member.Participant ? (
-                  <span className="rounded-full bg-green-100 text-green-500 text-xs font-semibold inline-block w-[120px] text-center">
-                    Participant
-                  </span>
-                ) : null}
-              </div>
-              <div className="flex flex-row">
-                <span className="text-sm text-left opacity-20 inline-block w-[80px] border-0">
-                  {member.tMasterID}
-                </span>
-                <span className="text-sm text-left opacity-60 inline-block w-full border-0">
-                  {member.PhoneHome} {member.Address}
-                </span>
-              </div>
+
+            <div className="flex flex-row">
+              <span className=" text-slate-400   px-1 h-[20px] border-0 grid place-items-center">
+                <CiPhone />
+              </span>{" "}
+              <span className="text-sm text-left opacity-60 inline-block w-full border-0">
+                {member.PhoneHome}
+              </span>
+              <span className=" text-slate-400 py-0  px-1  h-[20px] border-0 grid place-items-center">
+                <PiCellSignalFullLight />
+              </span>{" "}
+              <span className="text-sm text-left opacity-60 inline-block w-full border-0">
+                {member.Cell}
+              </span>
+            </div>
+
+            <div className="flex flex-row ">
+              <span className=" text-slate-400 py-0 w-[30px] border-0 grid place-items-center">
+                <AiOutlineHome />
+              </span>{" "}
+              <span className="text-sm text-left opacity-60 inline-block w-full border-0">
+                {member.Address} , {member.City}, {member.Prov}
+              </span>
+            </div>
+
+            <div className="flex flex-row  space-x-2 pt-2">
+              {data_Status &&
+                data_Status.map((status: any, key: number) => {
+                  const status_fullTitle = status.fullTitle;
+                  const status_title = status.title;
+                  const status_clr = status.clr.toString().trim();
+                  const status_fieldTitle = status.fieldTitle;
+
+                  return (
+                    <>
+                      {member[status_fieldTitle] ? (
+                        <span
+                          className={`rounded-full border border-slate-200 bg-white text-${status_clr}-500 text-xs font-semibold w-[50px] h-[20px] grid place-items-center `}
+                        >
+                          {status_title}
+                        </span>
+                      ) : null}
+                    </>
+                  );
+                })}
             </div>
           </div>
-        </button>
-      </form>
-      {/* <input
-        type="radio"
-        name="memberID"
-        id={member.tMasterID}
-        value={member.tMasterID}
-        className="hidden peer"
-        // onChange={(e) => handle_radioChanged_local(e)}
-        //onClick={}
-      />
-      <label
-        htmlFor={member.tMasterID.toString()}
-        className="flex items-center gap-4 p-4 rounded-lg bg-white bg-opacity-90 backdrop-blur-md shadow-md hover:bg-slate-100 peer-checked:bg-purple-900 peer-checked:text-white cursor-pointer transition"
-      >
-        <img
-          src={randomAvatarLink()}
-          alt="user photo"
-          className="w-10 h-10 object-cover rounded-full"
-        />
-        <div>
-          <h6 className="text-base">
-            {member.Fname} {member.Lname}
-          </h6>
-          <span className="text-sm opacity-60">
-            {" "}
-            {member.tMasterID} UX Writer{" "}
-          </span>
         </div>
       </label>
-      <div className="flex absolute top-0 right-4 bottom-0 w-7 h-7 my-auto rounded-full bg-purple-700 scale-0 peer-checked:scale-100 transition delay-100">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="currentColor"
-          className="w-5 text-white my-auto mx-auto"
-          viewBox="0 0 16 16"
-        >
-          <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
-        </svg>
-      </div> */}
+
+
     </div>
   );
 }

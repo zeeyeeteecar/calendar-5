@@ -16,7 +16,7 @@ export const data_Status = [
   {
     fullTitle: "Affiliate",
     title: "Affi",
-    clr: "purple",
+    clr: "indigo",
     fieldTitle: "Affiliate",
   },
   {
@@ -41,7 +41,7 @@ export const data_Status = [
   { fullTitle: "Staff", title: "Staff", clr: "orange", fieldTitle: "Staff" },
   {
     fullTitle: "Donor",
-    title: "Donor",
+    title: "Donr",
     clr: "red",
     fieldTitle: "Status_Donor",
   },

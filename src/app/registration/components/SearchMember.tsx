@@ -1,6 +1,7 @@
+"use client";
 import React from "react";
 import { revalidatePath } from "next/cache";
-import { prisma } from "../../lib/db";
+import { prisma } from "../../../lib/db";
 import SearchMemberRow from "./SearchMemberRow";
 
 ///=====================================================================
@@ -10,60 +11,73 @@ export default function SearchMember({
   handle_SearchMember,
   handle_radioChanged,
 }: any) {
+  const handle_SearchMember_local = async (formData: FormData) => {
+    const Fname = formData.get("Fname")?.valueOf().toString();
+    const Lname = formData.get("Lname")?.valueOf().toString();
+    const MemberID = formData.get("MemberID")?.valueOf().toString();
+
+    if (!Fname && !Lname && !MemberID) {
+      alert("Please enter 'First Name' or 'Last Name' or 'Member ID' !!! ");
+    }
+
+    await handle_SearchMember(Fname, Lname, MemberID);
+  };
+
   return (
-    <div className="flex-col w-full h-full border-green-400 border-0 space-y-2 p-1">
-      <header className="w-full border-0 text-center p-3 text-lg">
+    <div className="flex flex-col w-full h-full border-green-400 border-0 space-y-2 p-1 ">
+      {/* <header className="w-full border-0 text-center p-1 text-lg">
         SearchMember
-      </header>
+      </header> */}
 
       <form
-        action={handle_SearchMember}
-        className="space-x-2 flex flex-row border-0 "
+        action={handle_SearchMember_local}
+        className="space-x-0 flex flex-col border-0 p-1 space-y-2 "
       >
         <input
           type="text"
           name="Fname"
-          className="border border-slate-300 rounded px-2 py-1 w-full h-[40px]"
+          className="border border-slate-300 rounded px-2 py-1 w-min-full h-[40px]"
           placeholder="First Name"
-          
+          value="tom"
         ></input>
         <input
           type="text"
           name="Lname"
-          className="border border-slate-300 rounded px-2 py-1 w-full h-[40px]"
+          className="border border-slate-300 rounded px-2 py-1 w-min-full h-[40px]"
           placeholder="Last Name"
         ></input>
         <input
           type="text"
           name="MemberID"
-          className="border border-slate-300 rounded px-2 py-1 w-full h-[40px]"
+          className="border border-slate-300 rounded px-2 py-1 w-min-full h-[40px]"
           placeholder="MemberID"
         ></input>
         <button
           type="submit"
-          className=" bg-yellow-100 d px-2 py-1 w-full h-[40px] "
+          className=" bg-yellow-100 d px-2 py-1 w-min-full h-[40px] hover:bg-blue-100 "
         >
-          Search
+          Search Member
         </button>
       </form>
 
-      {/* <form
+      <form
         action={handle_radioChanged}
         className="w-full h-[750px] border-0 border-red-500 p-0"
-      > */}
-        <div className="flex flex-col flex-1 border-0 p-2 h-full w-full  ">
-          <div className="w-full h-full p-1 flex flex-col justify-center items-center border-0  ">
-            <div className="w-full h-full border-0 overflow-visible overflow-y-auto">
-              {globe_MemberSearchResult &&
-                globe_MemberSearchResult.map((member: any, key: number) => {
-                  return (
-                    <div key={key}>
-                     
-                      <SearchMemberRow member={member} handle_radioChanged={handle_radioChanged} />
-                    </div>
-                  );
-                })}
-            </div>
+      >
+        <div className="flex flex-col flex-1  border-0 p-2  w-full   flex-grow">
+          <div className="h-[600px] border-0 border-red-500 overflow-y-scroll space-y-2 px-2 ">
+            {globe_MemberSearchResult &&
+              globe_MemberSearchResult.map((member: any, key: number) => {
+                return (
+                  <div key={key}>
+                    <SearchMemberRow
+                      member={member}
+                      handle_radioChanged={handle_radioChanged}
+                    />
+                  </div>
+                );
+              })}
+
             <div>
               {/* <button
                 type="submit"
@@ -89,7 +103,7 @@ export default function SearchMember({
             </div>
           </div>
         </div>
-      {/* </form> */}
+      </form>
     </div>
   );
 }
