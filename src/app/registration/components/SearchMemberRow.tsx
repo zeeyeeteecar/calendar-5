@@ -16,8 +16,9 @@ const randomAvatarLink = () => {
 
 export default function SearchMemberRow({ member, handle_radioChanged }: any) {
   async function show_Selected_Member_Registration(e: any) {
-    console.log(e.target.value);
-    console.log(Selected_Member_Registration);
+    const memberID = e.target.value;
+    console.log(memberID);
+    console.log(Selected_Member_Registration(memberID));
   }
 
   return (
@@ -28,7 +29,7 @@ export default function SearchMemberRow({ member, handle_radioChanged }: any) {
           value={member.tMasterID}
           className="peer hidden"
           name="framework"
-          onClick={(e) => show_Selected_Member_Registration(e)}
+          onChange={(e) => show_Selected_Member_Registration(e)}
         />
 
         <div

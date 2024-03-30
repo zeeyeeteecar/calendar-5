@@ -4,33 +4,40 @@ import moment from "moment";
 import axios from "axios";
 
 export const Selected_Member_Registration = async (memberID: string) => {
+  console.log("memberID--", memberID);
   try {
-    const result = await prisma.tMaster.findMany({
+    const result = await prisma.tMemberRegEvent.findMany({
       where: {
-        tMasterID: Number(memberID),
+        MemberID: Number(memberID),
       },
       select: {
-        tMasterID: true,
-        Lname: true,
-        Fname: true,
-        Address: true,
-        Address2: true,
-        City: true,
-        Prov: true,
-        Email: true,
+        MemberPayment: true,
+        MemberPaymentBy: true,
+        MemberPaymentDate: true,
+        MemberPaymentReceiptNo: true,
+        MemberPaymentStaff: true,
+        Membership_Reg_Date: true,
+        Membership_Renewal_Date: true,
+        Membership_Voting_Date: true,
+        Membership_LifeTimeVoting_Date: true,
+        Notes: true,
 
-        tMemberRegEvent: {
-          select: {
-            MemberPayment: true,
-            MemberPaymentBy: true,
-            MemberPaymentDate:true,
-          },
-        },
+        // tEvents: {
+        //   select: {
+        //     Event_ID: true,
+        //     Start_Date: true,
+        //     End_Date: true,
+        //     Start_Time: true,
+        //     End_Time: true,
+        //     Event_Title: true,
+        //   },
+        // },
       },
     });
     return await result;
   } catch (error) {
     console.log("Error while login... cannot find any user");
+    console.log(error);
   }
 };
 

@@ -38,7 +38,7 @@ export default function SearchMember({
           name="Fname"
           className="border border-slate-300 rounded px-2 py-1 w-min-full h-[40px]"
           placeholder="First Name"
-          value="tom"
+          value="Kenny"
         ></input>
         <input
           type="text"
