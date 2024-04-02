@@ -1,11 +1,12 @@
+"use client";
 import React from "react";
 import { PiCellSignalFullLight } from "react-icons/pi";
 import { AiOutlineHome } from "react-icons/ai";
 import { CiPhone } from "react-icons/ci";
 import { revalidatePath } from "next/cache";
+import { prisma } from "../../../lib/db";
 
 import { data_Status } from "../../../lib/data";
-import { Selected_Member_Registration } from "../../../lib/lib";
 
 const randomAvatarLink = () => {
   const url =
@@ -14,22 +15,28 @@ const randomAvatarLink = () => {
   return url + randomNumber.toString() + ".png";
 };
 
-export default function SearchMemberRow({ member, handle_radioChanged }: any) {
-  async function show_Selected_Member_Registration(e: any) {
-    const memberID = e.target.value;
-    console.log(memberID);
-    console.log(Selected_Member_Registration(memberID));
-  }
+export default function SearchMemberRow({
+  member,
+  handle_radioChanged,
+  handle_Selected_Member_Registration,
+}: any) {
+  const [memberID, setMemberID] = React.useState();
+
+  // function handle_radioChanged(memberID: string) {
+  //   console.log(memberID);
+  // }
 
   return (
     <div className="relative border-0 w-full h-[140px] space-0 flex flex-col p-0 ">
       <label className="flex flex-col">
         <input
           type="radio"
-          value={member.tMasterID}
+          value={member.tMasterID.toString()}
           className="peer hidden"
           name="framework"
-          onChange={(e) => show_Selected_Member_Registration(e)}
+          onChange={(e) => {
+            handle_radioChanged(e.target.value);
+          }}
         />
 
         <div

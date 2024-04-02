@@ -16,6 +16,53 @@ let globe_RegistrationInfo: any = { memberInfo: null, eventsInfo: null };
 
 
 
+export const handle_Selected_Member_Registration = async (memberID: string) => {
+"use server"
+  console.log("memberID--", memberID);
+  try {
+
+    const result= await prisma.tMaster.findMany({
+      where: {
+        tMasterID: 393
+      },
+    });
+
+    // const result = await prisma.tMemberRegEvent.findMany({
+    //   where: {
+    //     // MemberID: Number(memberID),
+    //     MemberID: 147,
+    //   },
+    //   select: {
+    //     MemberPayment: true,
+    //     MemberPaymentBy: true,
+    //     MemberPaymentDate: true,
+    //     MemberPaymentReceiptNo: true,
+    //     MemberPaymentStaff: true,
+    //     Membership_Reg_Date: true,
+    //     Membership_Renewal_Date: true,
+    //     Membership_Voting_Date: true,
+    //     Membership_LifeTimeVoting_Date: true,
+    //     Notes: true,
+
+    //     // tEvents: {
+    //     //   select: {
+    //     //     Event_ID: true,
+    //     //     Start_Date: true,
+    //     //     End_Date: true,
+    //     //     Start_Time: true,
+    //     //     End_Time: true,
+    //     //     Event_Title: true,
+    //     //   },
+    //     // },
+    //   },
+    // });
+     return await result;
+  } catch (error) {
+    console.log("Error while login... cannot find any user");
+    console.log(error);
+  }
+};
+
 //====================================================
 async function handle_SearchMember(
   Fname: string,
@@ -65,10 +112,9 @@ async function handle_SearchMember(
 // }
 
 // ///========================================================
-async function handle_radioChanged(formData: FormData) {
+async function handle_radioChanged(memberID:string) {
   "use server";
-  const memberID = formData.get("memberID");
-
+ 
   console.log("memberID", memberID);
   globe_SelectedMember_RegisterInfo = await prisma.tMemberRegEvent.findMany({
     where: {
@@ -130,6 +176,7 @@ export default async function registration() {
           globe_Selected_MemberInfo={globe_Selected_MemberInfo}
           handle_SearchMember={handle_SearchMember}
           handle_radioChanged={handle_radioChanged}
+          handle_Selected_Member_Registration={handle_Selected_Member_Registration}
         />
       </div>
       <div className="w-4/12 border p-1">

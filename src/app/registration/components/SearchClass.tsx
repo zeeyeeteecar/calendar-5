@@ -89,11 +89,11 @@ export default function SearchClass({
                         # :{eventID}
                       </span>
                       <span className="text-sm text-slate-400">
-                        {eventStart_Date}
+                        {moment(eventStart_Date).format("YYYY-MM-DD")}
                       </span>
                       <span> -- </span>
                       <span className="text-sm text-slate-400">
-                        {eventEnd_Date}
+                        {moment(eventEnd_Date).format("YYYY-MM-DD")}
                       </span>
                     </div>
                     <div className="space-x-1">
@@ -112,63 +112,70 @@ export default function SearchClass({
             }
           )}
       </div>
-
-      <div className="border-0 flex flex-grow flex-col">
-        <div className="border-0 rounded-md p-2 w-full mx-auto max-w-2xl">
-          {/* <h4 className="text-xl lg:text-xl font-semibold">
-            Member Registratrion Fee
-          </h4> */}
-
-          <div>
-            {RegistrationStatus.map((regStatus: any, key: number) => {
-              return (
-                <div key={key} className="border-0 p-1">
-                  <label className="flex bg-gray-100 text-gray-700 rounded-md px-3 py-1 hover:bg-indigo-300 cursor-pointer ">
-                    <input
-                      type="radio"
-                      name="radio_RegistrationStatus"
-                      className="h-6 w-6"
-                      value={regStatus.statusFee}
-                      // checked={regStatus.defaultChecked}
-                    />
-                    <i className="pl-2">
-                      <span className="text-xs">$ </span>
-                      <span className=" inline-block w-[50px] font-bold">
-                        {regStatus.statusFee}{" "}
-                      </span>
-
-                      <span>{regStatus.status}</span>
-                    </i>
-                  </label>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-        <div>
-          <button
-            type="submit"
-            className=" w-[300px] p-2.5 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800  inline-flex items-center"
-          >
-            <svg
-              className="w-5 h-5 mx-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              ></path>
-            </svg>
-
-            <span>Invoice Preview</span>
-          </button>
-        </div>
+      <div>
+        <MembershipStatus />
       </div>
     </form>
+  );
+}
+
+function MembershipStatus() {
+  return (
+    <div className="border-0 flex flex-grow flex-col">
+      <div className="border-0 rounded-md p-2 w-full mx-auto max-w-2xl">
+        <h4 className="text-xl lg:text-xl font-semibold">
+          Member Registratrion Fee
+        </h4>
+
+        <div>
+          {RegistrationStatus.map((regStatus: any, key: number) => {
+            return (
+              <div key={key} className="border-0 p-1">
+                <label className="flex bg-gray-100 text-gray-700 rounded-md px-3 py-1 hover:bg-indigo-300 cursor-pointer ">
+                  <input
+                    type="radio"
+                    name="radio_RegistrationStatus"
+                    className="h-6 w-6"
+                    value={regStatus.statusFee}
+                    // checked={regStatus.defaultChecked}
+                  />
+                  <i className="pl-2">
+                    <span className="text-xs">$ </span>
+                    <span className=" inline-block w-[50px] font-bold">
+                      {regStatus.statusFee}{" "}
+                    </span>
+
+                    <span>{regStatus.status}</span>
+                  </i>
+                </label>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      <div>
+        <button
+          type="submit"
+          className=" w-[300px] p-2.5 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800  inline-flex items-center"
+        >
+          <svg
+            className="w-5 h-5 mx-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            ></path>
+          </svg>
+
+          <span>Invoice Preview</span>
+        </button>
+      </div>
+    </div>
   );
 }

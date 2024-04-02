@@ -5,13 +5,14 @@ import { prisma } from "../../../lib/db";
 import SearchMemberRow from "./SearchMemberRow";
 
 ///=====================================================================
-export default function SearchMember({
+export default async function SearchMember({
   globe_MemberSearchResult,
   globe_Selected_MemberInfo,
   handle_SearchMember,
   handle_radioChanged,
+  handle_Selected_Member_Registration,
 }: any) {
-  const handle_SearchMember_local = async (formData: FormData) => {
+  const handle_SearchMember_local = (formData: FormData) => {
     const Fname = formData.get("Fname")?.valueOf().toString();
     const Lname = formData.get("Lname")?.valueOf().toString();
     const MemberID = formData.get("MemberID")?.valueOf().toString();
@@ -20,7 +21,7 @@ export default function SearchMember({
       alert("Please enter 'First Name' or 'Last Name' or 'Member ID' !!! ");
     }
 
-    await handle_SearchMember(Fname, Lname, MemberID);
+    handle_SearchMember(Fname, Lname, MemberID);
   };
 
   return (
@@ -38,7 +39,6 @@ export default function SearchMember({
           name="Fname"
           className="border border-slate-300 rounded px-2 py-1 w-min-full h-[40px]"
           placeholder="First Name"
-          value="Kenny"
         ></input>
         <input
           type="text"
@@ -61,6 +61,7 @@ export default function SearchMember({
       </form>
 
       <form
+        id="formID"
         action={handle_radioChanged}
         className="w-full h-[750px] border-0 border-red-500 p-0"
       >
